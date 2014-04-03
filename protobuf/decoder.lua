@@ -277,6 +277,9 @@ function MessageDecoder(field_number, is_repeated, is_packed, key, new_default)
 end
 
 function _SkipVarint(buffer, pos, pend)
+    local value
+    value, pos = _DecodeVarint(buffer, pos)
+    return pos
 end
 
 function _SkipFixed64(buffer, pos, pend)
@@ -326,7 +329,7 @@ function _FieldSkipper()
     local sub = string.sub
 
     return function (buffer, pos, pend, tag_bytes)
-        local wire_type = ord(sub(buffer, 1, 1)) % 8 + 1
+        local wire_type = ord(sub(tag_bytes, 1, 1)) % 8 + 1
         return WIRETYPE_TO_SKIPPER[wire_type](buffer, pos, pend)
     end
 end
