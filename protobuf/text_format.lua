@@ -20,6 +20,7 @@ local print = print
 local getmetatable = getmetatable
 local table = table
 local ipairs = ipairs
+local tostring = tostring
 
 local descriptor = require "descriptor"
 
@@ -54,7 +55,7 @@ msg_format_indent = function(write, msg, indent)
                 write(string.rep(" ", indent))
                 write("}\n")
             else
-                write(string.format("%s: %s\n", name, field_value))
+                write(string.format("%s: %s\n", name, tostring(field_value)))
             end
         end
         if field.label == FieldDescriptor.LABEL_REPEATED then
