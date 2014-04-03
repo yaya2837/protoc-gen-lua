@@ -115,7 +115,7 @@ function StringByteSize(field_number, string)
 end
 
 function BytesByteSize(field_number, b)
-    return TagByteSize(field_number) + _VarUInt64ByteSizeNoTag(len(b)) + len(b)
+    return TagByteSize(field_number) + _VarUInt64ByteSizeNoTag(#b) + #b
 end
 
 function MessageByteSize(field_number, message)

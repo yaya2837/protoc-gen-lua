@@ -59,7 +59,7 @@ function _SimpleSizer(compute_value_size)
             end
         elseif is_repeated then
             return function(value)
-                result = tag_size * len(value)
+                result = tag_size * #value
                 for element in value do
                     result = result + compute_value_size(element)
                 end
@@ -87,7 +87,7 @@ function _ModifiedSizer(compute_value_size, modify_value)
             end
         elseif is_repeated then
             return function (value)
-                result = tag_size * len(value)
+                result = tag_size * #value
                 for element in value do
                     result = result + compute_value_size(modify_value(element))
                 end
@@ -107,13 +107,13 @@ function _FixedSizer(value_size)
         if is_packed then
             local VarintSize = _VarintSize
             return function (value)
-                local result = len(value) * value_size
+                local result = #value * value_size
                 return result + VarintSize(result) + tag_size
             end
         elseif is_repeated then
             local element_size = value_size + tag_size
             return function(value)
-                return len(value) * element_size
+                return #value * element_size
             end
         else
             local field_size = value_size + tag_size
