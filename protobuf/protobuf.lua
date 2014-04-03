@@ -525,7 +525,7 @@ local function _AddHasFieldMethod(message_descriptor, message_meta)
     end
     message_meta._member.HasField = function (self, field_name)
         field = singular_fields[field_name]
-        if feild == nil then
+        if field == nil then
             error('Protocol message has no singular "'.. field_name.. '" field.')
         end
         if field.cpp_type == FieldDescriptor.CPPTYPE_MESSAGE then
